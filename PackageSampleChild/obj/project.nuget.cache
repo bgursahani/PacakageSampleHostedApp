@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Wvr+C13aHEcl2pq0ueNFGpuFF1TK3NyYSw4xOS0xi5ZQLQMBnbrNmxrZHZ3+pzDZvnJLYsDhqHlFQZnHMOPtwA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\bgursahani\\source\\repos\\PackageSampleChild\\PackageSampleChild.wapproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\bgursahani\\.nuget\\packages\\microsoft.windows.sdk.buildtools\\10.0.22000.194\\microsoft.windows.sdk.buildtools.10.0.22000.194.nupkg.sha512"
+  ],
+  "logs": []
+}
