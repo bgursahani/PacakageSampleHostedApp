@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.Windows.ApplicationModel.WindowsAppRuntime;
 using System;
+using System.Collections.Generic;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -43,8 +44,15 @@ namespace PackageSampleHostedApp
 
         private void GetHostInfo_Click(object sender, RoutedEventArgs e)
         {
+            var hostRuntimeDependents = new FindRelatedPackagesOptions(PackageRelationship.Dependents);
+            //{
+            //    IncludeFrameworks = false,
+            //    IncludeHostRuntimes = true,
+            //    IncludeOptionals = false,
+            //    IncludeResources = false
+            //};
 
-            IReadOnlyList<Windows.ApplicationModel.Package> dependents = Package.Current.Find;
+            IList<Windows.ApplicationModel.Package> dependents = Package.Current.FindRelatedPackages(hostRuntimeDependents);
 
             String output = String.Format("Count: {0}", dependents.Count.ToString());
             for (int i = 0; i < dependents.Count; i++)
@@ -54,6 +62,36 @@ namespace PackageSampleHostedApp
             }
 
             OutputTextBlock.Text = output;
+    
+        
         }
+        private void PackageInstallingCallback(object x, PackageInstallingEventArgs args)
+        { Package package = args.Package;
+            OutputTextBlock.Text = package.DisplayName;
+                }
+
+        private void PackageUninstallingCallback(PackageCatalog sender, PackageUninstallingEventArgs args)
+        {
+            Package package = args.Package;
+            OutputTextBlock.Text = package.DisplayName;
+        }
+        private void OptionalPackageUpdatingCallback(object x, PackageUpdatingEventArgs args)
+        {
+            Package package = args.TargetPackage;
+            OutputTextBlock.Text = package.DisplayName;
+        }
+
+        private void Register_for_notifications_Click (object sender, RoutedEventArgs e)
+        {
+           var catalog = PackageCatalog.OpenForPackage(Package.Current);
+            catalog.PackageUpdating += OptionalPackageUpdatingCallback;
+            catalog.PackageInstalling += PackageInstallingCallback;
+            catalog.PackageUninstalling += PackageUninstallingCallback;
+
+
+        }
+
+       
     }
+
 }
