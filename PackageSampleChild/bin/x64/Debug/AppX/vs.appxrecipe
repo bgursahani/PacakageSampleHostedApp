@@ -20,7 +20,7 @@
     <WindowsSdkPath>
     </WindowsSdkPath>
     <LayoutDir>C:\Users\bgursahani\source\repos\PackageSampleChild\bin\x64\Debug\AppX</LayoutDir>
-    <RegisteredManifestChecksum>C5B9469285439DD527C87F85E56396897A8996C1F166A42B76CCA583E64E88A7</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>8DF8766B5588BCB4B622EFBABB3E1EF9F56871DC20C88638BEC4BBF937FD8696</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>1a2282a2-43d3-486e-bc8d-4ccf6e7c6013_1.0.0.0_x64__1wrt84s6dvaf2</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>1a2282a2-43d3-486e-bc8d-4ccf6e7c6013_1wrt84s6dvaf2!App</RegisteredUserModeAppID>
     <RegisteredPackageID>1a2282a2-43d3-486e-bc8d-4ccf6e7c6013</RegisteredPackageID>
@@ -31,7 +31,7 @@
     <AppXManifest Include="C:\Users\bgursahani\source\repos\PackageSampleChild\bin\x64\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2022-03-03T22:10:12.932</Modified>
+      <Modified>2022-03-08T18:44:43.616</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
@@ -71,7 +71,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\bgursahani\source\repos\PackageSampleChild\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2022-03-03T22:10:12.800</Modified>
+      <Modified>2022-03-08T18:44:43.577</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

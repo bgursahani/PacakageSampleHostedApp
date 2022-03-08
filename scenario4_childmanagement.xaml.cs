@@ -9,6 +9,7 @@ using System.Collections.Generic;
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Management.Deployment;
 
@@ -44,13 +45,13 @@ namespace PackageSampleHostedApp
 
         private void GetHostInfo_Click(object sender, RoutedEventArgs e)
         {
-            var hostRuntimeDependents = new FindRelatedPackagesOptions(PackageRelationship.Dependents);
-            //{
-            //    IncludeFrameworks = false,
-            //    IncludeHostRuntimes = true,
-            //    IncludeOptionals = false,
-            //    IncludeResources = false
-            //};
+            var hostRuntimeDependents = new FindRelatedPackagesOptions(PackageRelationship.Dependents)
+            {
+                IncludeFrameworks = false,
+                IncludeHostRuntimes = true,
+                IncludeOptionals = false,
+                IncludeResources = false
+            };
 
             IList<Windows.ApplicationModel.Package> dependents = Package.Current.FindRelatedPackages(hostRuntimeDependents);
 
@@ -62,18 +63,21 @@ namespace PackageSampleHostedApp
             }
 
             OutputTextBlock.Text = output;
-    
-        
+
+
         }
         private void PackageInstallingCallback(object x, PackageInstallingEventArgs args)
-        { Package package = args.Package;
-            OutputTextBlock.Text = package.DisplayName;
-                }
-
-        private void PackageUninstallingCallback(PackageCatalog sender, PackageUninstallingEventArgs args)
         {
             Package package = args.Package;
             OutputTextBlock.Text = package.DisplayName;
+        }
+
+        private void PackageUninstallingCallback(PackageCatalog sender, PackageUninstallingEventArgs args)
+        {
+            var ignored = CoreApplication.MainView.CoreWindow.DispatcherQueue.TryEnqueue((Windows.System.DispatcherQueuePriority)Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
+            {
+                OutputTextBlock.Text = OutputTextBlock.Text + "\n  PackageUninstalling " + args.Package.Id.FullName + " Progress " + args.Progress + " IsComplete " + args.IsComplete + " ActivityId " + args.ActivityId + " ErrorCode " + args.ErrorCode.ToString();
+            });
         }
         private void OptionalPackageUpdatingCallback(object x, PackageUpdatingEventArgs args)
         {
@@ -81,17 +85,13 @@ namespace PackageSampleHostedApp
             OutputTextBlock.Text = package.DisplayName;
         }
 
-        private void Register_for_notifications_Click (object sender, RoutedEventArgs e)
+        private void Register_for_notifications_Click(object sender, RoutedEventArgs e)
         {
-           var catalog = PackageCatalog.OpenForPackage(Package.Current);
+            var catalog = PackageCatalog.OpenForPackage(Package.Current);
+            OutputTextBlock.Text = "PackageCatalog Opened";
             catalog.PackageUpdating += OptionalPackageUpdatingCallback;
             catalog.PackageInstalling += PackageInstallingCallback;
             catalog.PackageUninstalling += PackageUninstallingCallback;
-
-
         }
-
-       
     }
-
 }

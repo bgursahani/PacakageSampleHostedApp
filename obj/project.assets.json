@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net6.0-windows10.0.22000": {
+    "net6.0-windows10.0.22567": {
       "Microsoft.Windows.SDK.BuildTools/10.0.22543-preview": {
         "type": "package",
         "build": {
@@ -54,7 +54,7 @@
         }
       }
     },
-    "net6.0-windows10.0.22000/win10-arm64": {
+    "net6.0-windows10.0.22567/win10-arm64": {
       "Microsoft.Windows.SDK.BuildTools/10.0.22543-preview": {
         "type": "package",
         "build": {
@@ -96,7 +96,7 @@
         }
       }
     },
-    "net6.0-windows10.0.22000/win10-x64": {
+    "net6.0-windows10.0.22567/win10-x64": {
       "Microsoft.Windows.SDK.BuildTools/10.0.22543-preview": {
         "type": "package",
         "build": {
@@ -138,7 +138,7 @@
         }
       }
     },
-    "net6.0-windows10.0.22000/win10-x86": {
+    "net6.0-windows10.0.22567/win10-x86": {
       "Microsoft.Windows.SDK.BuildTools/10.0.22543-preview": {
         "type": "package",
         "build": {
@@ -681,7 +681,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net6.0-windows10.0.22000": [
+    "net6.0-windows10.0.22567": [
       "Microsoft.Windows.SDK.BuildTools >= 10.0.22543-preview",
       "Microsoft.WindowsAppSDK >= 1.0.0"
     ]
@@ -708,7 +708,7 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net6.0-windows10.0.22000"
+        "net6.0-windows10.0.22567"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -716,8 +716,8 @@
         "https://pkgs.dev.azure.com/microsoft/ProjectReunion/_packaging/Project.Reunion.nuget.internal/nuget/v3/index.json": {}
       },
       "frameworks": {
-        "net6.0-windows10.0.22000": {
-          "targetAlias": "net6.0-windows10.0.22000.0",
+        "net6.0-windows10.0.22567": {
+          "targetAlias": "net6.0-windows10.0.22567.0",
           "projectReferences": {}
         }
       },
@@ -728,8 +728,8 @@
       }
     },
     "frameworks": {
-      "net6.0-windows10.0.22000": {
-        "targetAlias": "net6.0-windows10.0.22000.0",
+      "net6.0-windows10.0.22567": {
+        "targetAlias": "net6.0-windows10.0.22567.0",
         "dependencies": {
           "Microsoft.Windows.SDK.BuildTools": {
             "target": "Package",
@@ -777,7 +777,7 @@
           },
           {
             "name": "Microsoft.Windows.SDK.NET.Ref",
-            "version": "[10.0.22000.22, 10.0.22000.22]"
+            "version": "[10.0.22567-preview, 10.0.22567-preview]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-arm64",
