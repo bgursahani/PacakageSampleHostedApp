@@ -23,6 +23,7 @@ namespace PackageSampleHostedApp
         // A pointer back to the main page.  This is needed if you want to call methods in MainPage such
         // as NotifyUser()
         MainPage rootPage = MainPage.Current;
+        PackageCatalog catalog = null;
 
         public Scenario4()
         {
@@ -42,16 +43,21 @@ namespace PackageSampleHostedApp
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
         }
-
+       
         private void GetHostInfo_Click(object sender, RoutedEventArgs e)
         {
-            var hostRuntimeDependents = new FindRelatedPackagesOptions(PackageRelationship.Dependents)
+            var pkgdependents = PackageRelationship.Dependents;
+           
+            
+            var hostRuntimeDependents = new FindRelatedPackagesOptions(pkgdependents)
             {
                 IncludeFrameworks = false,
                 IncludeHostRuntimes = true,
                 IncludeOptionals = false,
                 IncludeResources = false
             };
+            //var hostRuntimeDependents = new FindRelatedPackagesOptions(PackageRelationship.Dependents)
+
 
             IList<Windows.ApplicationModel.Package> dependents = Package.Current.FindRelatedPackages(hostRuntimeDependents);
 
@@ -72,13 +78,31 @@ namespace PackageSampleHostedApp
             OutputTextBlock.Text = package.DisplayName;
         }
 
-        private void PackageUninstallingCallback(PackageCatalog sender, PackageUninstallingEventArgs args)
+        private void PackageUninstallingCallback(object x, PackageUninstallingEventArgs args) 
+
         {
-            var ignored = CoreApplication.MainView.CoreWindow.DispatcherQueue.TryEnqueue((Windows.System.DispatcherQueuePriority)Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
+            
+
+            if (this.DispatcherQueue.HasThreadAccess)
             {
-                OutputTextBlock.Text = OutputTextBlock.Text + "\n  PackageUninstalling " + args.Package.Id.FullName + " Progress " + args.Progress + " IsComplete " + args.IsComplete + " ActivityId " + args.ActivityId + " ErrorCode " + args.ErrorCode.ToString();
-            });
+                OutputTextBlock.Text = OutputTextBlock.Text;
+            }
+
+            else
+            {
+                bool isQueued = this.DispatcherQueue.TryEnqueue(
+                Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal,
+                () => OutputTextBlock.Text = OutputTextBlock.Text + "\n  PackageUninstalling " + args.Package.Id.FullName + " Progress " + args.Progress + " IsComplete " + args.IsComplete + " ActivityId " + args.ActivityId);
+
+            }
         }
+
+        //{
+        //    var ignored = CoreApplication.MainView.CoreWindow.DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
+        //    {
+        //        OutputTextBlock.Text = OutputTextBlock.Text + "\n  PackageUninstalling " + args.Package.Id.FullName + " Progress " + args.Progress + " IsComplete " + args.IsComplete + " ActivityId " + args.ActivityId + " ErrorCode " + args.ErrorCode.ToString();
+        //    });
+        //}
         private void OptionalPackageUpdatingCallback(object x, PackageUpdatingEventArgs args)
         {
             Package package = args.TargetPackage;
@@ -87,7 +111,7 @@ namespace PackageSampleHostedApp
 
         private void Register_for_notifications_Click(object sender, RoutedEventArgs e)
         {
-            var catalog = PackageCatalog.OpenForPackage(Package.Current);
+            catalog = PackageCatalog.OpenForPackage(Package.Current);
             OutputTextBlock.Text = "PackageCatalog Opened";
             catalog.PackageUpdating += OptionalPackageUpdatingCallback;
             catalog.PackageInstalling += PackageInstallingCallback;
